@@ -1,6 +1,0 @@
-[project]
-name = "user_repository"
-version = "0.1.0"
-dependencies = [
-  "pandas"
-]

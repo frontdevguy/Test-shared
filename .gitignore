@@ -107,4 +107,4 @@ celerybeat-schedule
 # Cython debug symbols
 cython_debug/
 
-tests/
+.vscode/
