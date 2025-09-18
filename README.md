@@ -1,100 +1,121 @@
-Agent Modules
+# Agent Modules
 
 This folder contains shared modules designed for use across multiple agents. Each module is self-contained, with its own dependencies and logic, and is managed via `uv` and `pyproject.toml`.
 
-How to Add a New Module
+## How to add a new module
 
 1. Ensure `uv` is installed
 
-macOS (Homebrew):
-```bash
-brew install uv
-```
+    `uv` is the workspace and package manager used to manage environments and local modules in this repository.
 
-Linux (install script):
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
+    macOS (Homebrew):
+    ```bash
+    brew install uv
+    ```
 
-Windows (winget):
-```powershell
-winget install astral-sh.uv
-```
+    Linux (install script):
+    ```bash
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    ```
 
-Windows (Chocolatey):
-```powershell
-choco install uv
-```
+    Windows (winget):
+    ```powershell
+    winget install astral-sh.uv
+    ```
 
-Or via pipx (cross-platform):
-```bash
-pipx install uv
-```
+    Windows (Chocolatey):
+    ```powershell
+    choco install uv
+    ```
+
+    Or via pipx (cross-platform):
+    ```bash
+    pipx install uv
+    ```
 
 2. Ensure Poetry is installed
 
-Check if Poetry is installed:
-```bash
-poetry --version
-```
+    Some modules use Poetry for dependency management; having it installed lets you add and lock dependencies inside a module.
 
-Install Poetry if not installed:
-```bash
-curl -sSL https://install.python-poetry.org | python3 -
-```
+    Check if Poetry is installed:
+    ```bash
+    poetry --version
+    ```
 
-Verify the installation:
-```bash
-poetry --version
-```
+    Install Poetry if not installed:
+    ```bash
+    curl -sSL https://install.python-poetry.org | python3 -
+    ```
 
-3. Create virtual environment
+    Verify the installation:
+    ```bash
+    poetry --version
+    ```
 
-```bash
-uv venv
-source .venv/bin/activate
-```
+3. Create a virtual environment
+
+    Use an isolated environment so module dependencies don't conflict with system Python or other projects.
+
+    ```bash
+    uv venv
+    source .venv/bin/activate
+    ```
 
 4. Create your module folder
 
-Example:
-```bash
-mkdir -p shared/dataframes
-```
+    Place new shared modules under `shared/`. Use a descriptive, pluralized name if it contains multiple utilities.
 
-5. Initialize the Python project using `uv`
+    Example:
+    ```bash
+    mkdir -p shared/dataframes
+    ```
 
-```bash
-cd shared/dataframes
-uv init
-```
+5. Initialize the Python project with `uv`
+
+    This scaffolds the module (e.g., creates `pyproject.toml`) so it can be managed and published as a package.
+
+    ```bash
+    cd shared/dataframes
+    uv init
+    ```
 
 6. Add dependencies to your module
 
-To install a dependency like pandas:
-```bash
-poetry add pandas
-```
+    Add libraries your module needs. Do this from within the module folder so they are recorded in that module's lockfile.
+
+    To install a dependency like pandas:
+    ```bash
+    poetry add pandas
+    ```
 
 7. Create the package files
 
-```bash
-touch __init__.py
-```
+    Ensure the directory is a proper Python package so other projects can import it.
 
-8. Register your module in the root `pyproject.toml`
+    ```bash
+    touch __init__.py
+    ```
 
-Add this to the `[tool.uv.workspace]` section:
-```toml
-"shared/dataframes"
-```
+8. Register the module in the root `pyproject.toml`
 
-9. Create example usage
+    Registering the module as a workspace member lets `uv` discover, build, and link it locally.
 
-Add your test script in the `examples/` folder
+    Add this to the `members` array:
+    ```toml
+    [tool.uv.workspace]
+    members = ["shared/dataframes"]
+    ```
+
+9. Create an example usage script
+
+    A small example in `examples/` helps validate the module's API and provides documentation.
+
+    Add your test script in the `examples/` folder
 
 10. Test your module
 
-```bash
-python -m examples.dataframe
-```
+    Run the example to confirm the module imports correctly and behaves as expected.
+
+    ```bash
+    python -m examples.dataframe
+    ```
