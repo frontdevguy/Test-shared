@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "product_repository"
+version = "0.1.0"
+description = "Shared product repository dependencies"
+requires-python = ">=3.9"
+
+# Only declare product-repo dependencies here. Add as needed, e.g.:
+# dependencies = [
+#   "sqlalchemy>=1.4,<3",
+# ]
+dependencies = []
+
+
