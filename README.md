@@ -106,13 +106,16 @@ This folder contains shared modules designed for use across multiple agents. Eac
     members = ["shared/dataframes"]
     ```
 
-9. Create an example usage script
+9. Sync the newly added packages.
+    You must run `uv sync` every time you add a package to any module 
+   
+10. Create an example usage script
 
     A small example in `examples/` helps validate the module's API and provides documentation.
 
     Add your test script in the `examples/` folder
 
-10. Test your module
+11. Test your module
 
     Run the example to confirm the module imports correctly and behaves as expected.
 
